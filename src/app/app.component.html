@@ -1,0 +1,80 @@
+
+<form [formGroup]="patientFormGroup"]>
+  Patient ID: <input type="text" formControlName="id"> <br>
+  Patient Name: <input type="text" formControlName="name"> <br>
+  Age: <input type="text" formControlName="age"> <br>
+  phone: <input type="text" formControlName="phone" > 
+  email: <input type="text" formControlName="email" > 
+  <button (click)="save()">Save</button>
+</form>
+
+<button (click)="getAll()">GET ALL PATIENTS </button>
+
+<div  *ngIf="patients !=null">
+  <table>
+        <tr>
+              <th>ID</th> 
+              <th>Name</th>
+              <th>Age</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>RegDate</th>
+              <th>Show visitings</th>
+        </tr>
+
+        <tr *ngFor="let p of patients">
+              <td>{{p.id}}</td>
+              <td> <a href="#" (click)="getPatientById(p.id)"> {{p.name}} </a></td>
+              <td>{{p.age}}</td>
+              <td>{{p.phone}}</td>
+              <td>{{p.email}}</td>
+              <td>{{p.regDate}}</td>
+              <td (mouseover)="getVisitings(p.id)" (mouseleave)="clearVisitingInfo()"> Show visitings</td>
+        </tr>
+
+  </table>
+  <div *ngIf="visitingInfo!=null">
+        <ul>
+              <li *ngFor="let vi of visitingInfo"> {{vi[0] +"====="+vi[1]}} </li>
+        </ul>
+
+  </div>
+</div>
+
+<!--
+<form [formGroup]="courseFormGroup">
+Course ID: <input type="text" formControlName="id"> 
+{{courseFormGroup.get('id').valid}} ==>
+{{courseFormGroup.get('id').errors | json}}
+
+<br>
+Course Name:<input type="text" formControlName="name">
+{{courseFormGroup.get('name').valid}} ==>
+{{courseFormGroup.get('name').errors | json}}
+<span *ngIf="courseFormGroup.get('name').errors?.required">Field is required</span>
+<span *ngIf="courseFormGroup.get('name').errors?.minlength">Field min length is 5</span>
+<br>
+
+Course Duration:<input type="text" formControlName="duration">
+{{courseFormGroup.get('duration').valid}} ==>
+{{courseFormGroup.get('duration').errors | json}}
+<span *ngIf="courseFormGroup.get('duration').errors?.required">Duration is required</span>
+<span *ngIf="courseFormGroup.get('duration').errors?.min">Duration min value is 1</span>
+<span *ngIf="c.duration.errors?.max">Duration max value is 90</span>
+<br>
+
+Course Description: 
+<input type="text" formControlName="description" > 
+{{courseFormGroup.get('description').valid}} ==>
+{{courseFormGroup.get('description').errors | json}}
+<br>
+<button (click)="displayData()">     Save Course    </button>
+</form>
+
+TotalForm valid:{{courseFormGroup.valid}}
+
+<input id="name" name="name" class="form-control"
+  required minlength="4" appForbiddenName="bob"
+  [(ngModel)]="name" #name="ngModel" >
+{{name}}
+-->
